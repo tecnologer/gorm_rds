@@ -51,10 +51,9 @@ func (dialector Dialector) Name() string {
 }
 
 func (dialector Dialector) Initialize(db *gorm.DB) (err error) {
+	config := &callbacks.Config{}
 	// register callbacks
-	callbacks.RegisterDefaultCallbacks(db, &callbacks.Config{
-		WithReturning: !dialector.WithoutReturning,
-	})
+	callbacks.RegisterDefaultCallbacks(db, config)
 
 	if dialector.Conn != nil {
 		db.ConnPool = dialector.Conn
